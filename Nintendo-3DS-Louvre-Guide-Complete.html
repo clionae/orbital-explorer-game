@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nintendo 3DS Louvre Guide - Complete Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        /* Nintendo 3DS Console */
+        .nintendo-3ds {
+            width: 400px;
+            height: 480px;
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 
+                0 15px 35px rgba(0,0,0,0.4),
+                inset 0 2px 4px rgba(255,255,255,0.1);
+            position: relative;
+        }
+        
+        /* Top Screen */
+        .top-screen {
+            width: 360px;
+            height: 200px;
+            background: linear-gradient(135deg, #fef7e7, #f4e4bc);
+            border: 3px solid #2c3e50;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Museum Header */
+        .museum-header {
+            background: linear-gradient(135deg, #d4af37, #b8941f);
+            color: white;
+            padding: 8px 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        /* Welcome Content */
+        .welcome-content {
+            padding: 20px;
+            text-align: center;
+            height: calc(100% - 40px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .welcome-title {
+            color: #8b4513;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .welcome-subtitle {
+            color: #a0522d;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .welcome-divider {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, #d4af37, #b8941f);
+            margin: 0 auto 15px auto;
+            border-radius: 1px;
+        }
+        
+        /* 3D Orbital Display */
+        .orbital-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .orbital-model {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .orbital-model:hover {
+            transform: scale(1.1);
+        }
+        
+        .orbital-s {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, #ff8e8e, #ffb3b3);
+            box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .orbital-p {
+            width: 50px;
+            height: 30px;
+            background: linear-gradient(45deg, #ff9500, #ffb347, #ffd700);
+            border-radius: 25px;
+            position: relative;
+            box-shadow: 0 0 15px rgba(255, 149, 0, 0.5);
+            animation: float 3s ease-in-out infinite 0.5s;
+        }
+        
+        .orbital-p::before {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 30px;
+            background: linear-gradient(-45deg, #ff9500, #ffb347, #ffd700);
+            border-radius: 25px;
+            transform: rotate(90deg);
+            top: 0;
+            left: 0;
+        }
+        
+        .orbital-d {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(45deg, #feca57, #ff9500, #ffb347);
+            transform: rotate(45deg);
+            position: relative;
+            box-shadow: 0 0 15px rgba(254, 202, 87, 0.5);
+            animation: float 3s ease-in-out infinite 1s;
+        }
+        
+        .orbital-f {
+            width: 40px;
+            height: 40px;
+            background: conic-gradient(from 0deg, #d4af37, #ff9500, #ffb347, #ffd700, #feca57, #d4af37);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            animation: float 3s ease-in-out infinite 1.5s;
+        }
+        
+        /* Bottom Screen */
+        .bottom-screen {
+            width: 360px;
+            height: 200px;
+            background: linear-gradient(135deg, #fef7e7, #f4e4bc);
+            border: 3px solid #2c3e50;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Bottom Screen Header */
+        .bottom-header {
+            background: linear-gradient(135deg, #d4af37, #b8941f);
+            color: white;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        /* Scrollable Content */
+        .scrollable-content {
+            height: calc(100% - 32px);
+            overflow-y: auto;
+            padding: 12px;
+        }
+        
+        /* Tour Cards */
+        .tour-card {
+            background: linear-gradient(145deg, #fef7e7, #f4e4bc);
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .tour-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            border-color: #d4af37;
+        }
+        
+        .tour-icon {
+            font-size: 24px;
+            width: 35px;
+            text-align: center;
+        }
+        
+        .tour-info h3 {
+            color: #8b4513;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        
+        .tour-info p {
+            color: #a0522d;
+            font-size: 10px;
+            margin: 0;
+        }
+        
+        .tour-duration {
+            color: #d4af37;
+            font-size: 9px;
+            margin-top: 2px;
+        }
+        
+        /* Navigation Section */
+        .nav-section {
+            background: rgba(255,255,255,0.3);
+            border-radius: 6px;
+            padding: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .nav-title {
+            color: #8b4513;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .nav-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+        }
+        
+        .nav-button {
+            background: linear-gradient(145deg, #d4af37, #b8941f);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 8px;
+            font-size: 9px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        /* Progress Section */
+        .progress-section {
+            background: rgba(255,255,255,0.3);
+            border-radius: 6px;
+            padding: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .progress-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+        
+        .progress-stat {
+            background: rgba(212, 175, 55, 0.2);
+            border-radius: 4px;
+            padding: 4px 6px;
+            text-align: center;
+        }
+        
+        .progress-stat .value {
+            color: #8b4513;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .progress-stat .label {
+            color: #a0522d;
+            font-size: 8px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4af37, #b8941f);
+            width: 25%;
+            transition: width 0.3s ease;
+        }
+        
+        /* Hardware Buttons */
+        .hardware-buttons {
+            position: absolute;
+        }
+        
+        .button-a, .button-b {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            margin: 4px 0;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.3), 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .button-a {
+            background: linear-gradient(145deg, #4169E1, #1E90FF);
+            border: 2px solid #1E90FF;
+        }
+        
+        .button-b {
+            background: linear-gradient(145deg, #DC143C, #FF6347);
+            border: 2px solid #DC143C;
+        }
+        
+        .button-a:active, .button-b:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .buttons-right {
+            right: -20px;
+            top: 120px;
+        }
+        
+        /* D-Pad */
+        .dpad {
+            position: absolute;
+            left: -20px;
+            top: 120px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(145deg, #708090, #556B7D);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 0 #556B7D, 0 4px 8px rgba(0,0,0,0.3);
+            cursor: pointer;
+        }
+        
+        .dpad-inner {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(145deg, #A9A9A9, #808080);
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .dpad-cross {
+            position: absolute;
+            background: #556B7D;
+        }
+        
+        .dpad-cross.horizontal {
+            width: 16px;
+            height: 4px;
+            border-radius: 2px;
+        }
+        
+        .dpad-cross.vertical {
+            width: 4px;
+            height: 16px;
+            border-radius: 2px;
+        }
+        
+        /* Shoulder Buttons */
+        .shoulder-buttons {
+            position: absolute;
+            top: -8px;
+            left: 50px;
+            right: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .shoulder-button {
+            width: 30px;
+            height: 12px;
+            background: linear-gradient(145deg, #708090, #556B7D);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 0 #556B7D, 0 3px 6px rgba(0,0,0,0.2);
+        }
+        
+        /* Start/Select Buttons */
+        .start-select {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+        }
+        
+        .start-button, .select-button {
+            width: 40px;
+            height: 12px;
+            background: linear-gradient(145deg, #708090, #556B7D);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 7px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 1px 0 #556B7D, 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-3px); }
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .orbital-f {
+            animation: float 3s ease-in-out infinite 1.5s, spin 8s linear infinite;
+        }
+        
+        /* Scrollbar Styling */
+        .scrollable-content::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .scrollable-content::-webkit-scrollbar-track {
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 2px;
+        }
+        
+        .scrollable-content::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.5);
+            border-radius: 2px;
+        }
+        
+        .scrollable-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 175, 55, 0.7);
+        }
+        
+        /* Nintendo Branding */
+        .nintendo-logo {
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #708090;
+            font-size: 8px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        /* Interactive States */
+        .tour-card:active {
+            transform: translateY(1px);
+        }
+        
+        .nav-button:active {
+            transform: translateY(1px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .nintendo-3ds {
+                width: 350px;
+                height: 420px;
+                padding: 15px;
+            }
+            
+            .top-screen, .bottom-screen {
+                width: 320px;
+            }
+            
+            .top-screen {
+                height: 180px;
+            }
+            
+            .bottom-screen {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nintendo-3ds">
+        <!-- Top Screen -->
+        <div class="top-screen">
+            <div class="museum-header">
+                🏛️ Orbital Museum Guide
+            </div>
+            <div class="welcome-content">
+                <div class="welcome-title">Welcome to the Orbital Tour</div>
+                <div class="welcome-subtitle">Interactive Audio Guide • Nintendo 3DS</div>
+                <div class="welcome-divider"></div>
+                
+                <!-- 3D Orbital Models Display -->
+                <div class="orbital-display">
+                    <div class="orbital-model">
+                        <div class="orbital-s" title="S Orbital - Spherical"></div>
+                    </div>
+                    <div class="orbital-model">
+                        <div class="orbital-p" title="P Orbital - Dumbbell"></div>
+                    </div>
+                    <div class="orbital-model">
+                        <div class="orbital-d" title="D Orbital - Cloverleaf"></div>
+                    </div>
+                    <div class="orbital-model">
+                        <div class="orbital-f" title="F Orbital - Complex"></div>
+                    </div>
+                </div>
+                
+                <div style="color: #a0522d; font-size: 10px; margin-top: 10px;">
+                    Tap orbitals to explore • Drag to rotate in 3D
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Screen -->
+        <div class="bottom-screen">
+            <div class="bottom-header">
+                <span>📱 Orbital Museum Guide</span>
+                <span>Nintendo 3DS</span>
+            </div>
+            
+            <div class="scrollable-content">
+                <!-- Quick Navigation -->
+                <div class="nav-section">
+                    <div class="nav-title">🗺️ Quick Navigation</div>
+                    <div class="nav-buttons">
+                        <button class="nav-button">🏠 Home</button>
+                        <button class="nav-button">⚛️ Explore</button>
+                    </div>
+                </div>
+                
+                <!-- Tour Selection -->
+                <div class="tour-card">
+                    <div class="tour-icon">🔬</div>
+                    <div class="tour-info">
+                        <h3>Orbital Discovery Tour</h3>
+                        <p>Explore atomic structures</p>
+                        <div class="tour-duration">⏱️ 15-20 min</div>
+                    </div>
+                </div>
+                
+                <div class="tour-card">
+                    <div class="tour-icon">⚗️</div>
+                    <div class="tour-info">
+                        <h3>Interactive Laboratory</h3>
+                        <p>Build electron configurations</p>
+                        <div class="tour-duration">⏱️ 10-15 min</div>
+                    </div>
+                </div>
+                
+                <div class="tour-card">
+                    <div class="tour-icon">🏛️</div>
+                    <div class="tour-info">
+                        <h3>Your Progress</h3>
+                        <p>View discoveries & achievements</p>
+                        <div class="tour-duration">⏱️ 5 min</div>
+                    </div>
+                </div>
+                
+                <!-- Floor Map -->
+                <div class="nav-section">
+                    <div class="nav-title">🗺️ Orbital Floor Map</div>
+                    <div style="font-size: 9px; color: #a0522d; line-height: 1.3;">
+                        <div>📍 S Orbital Wing - Spherical exhibits</div>
+                        <div>📍 P Orbital Gallery - Dumbbell displays</div>
+                        <div>📍 D Orbital Hall - Cloverleaf collection</div>
+                        <div>📍 F Orbital Chamber - Complex structures</div>
+                    </div>
+                </div>
+                
+                <!-- Progress Section -->
+                <div class="progress-section">
+                    <div class="nav-title">🏆 Your Museum Visit</div>
+                    <div class="progress-stats">
+                        <div class="progress-stat">
+                            <div class="value">2/8</div>
+                            <div class="label">Visited</div>
+                        </div>
+                        <div class="progress-stat">
+                            <div class="value">30+</div>
+                            <div class="label">Audio</div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                </div>
+                
+                <!-- Audio Commentary -->
+                <div class="nav-section">
+                    <div class="nav-title">🔊 Audio Commentary</div>
+                    <div style="font-size: 9px; color: #a0522d; line-height: 1.3;">
+                        <div>▶️ Introduction to Orbitals (3:45)</div>
+                        <div>▶️ S Orbital Properties (5:20)</div>
+                        <div>🔒 P Orbital Shapes (7:15)</div>
+                        <div>🔒 D Orbital Complexity (8:30)</div>
+                    </div>
+                </div>
+                
+                <!-- Settings -->
+                <div class="nav-section">
+                    <div class="nav-title">⚙️ Guide Settings</div>
+                    <div class="nav-buttons">
+                        <button class="nav-button">🔊 Audio</button>
+                        <button class="nav-button">🌐 Language</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hardware Buttons -->
+        <div class="hardware-buttons buttons-right">
+            <div class="button-a">A</div>
+            <div class="button-b">B</div>
+        </div>
+        
+        <!-- D-Pad -->
+        <div class="dpad">
+            <div class="dpad-inner">
+                <div class="dpad-cross horizontal"></div>
+                <div class="dpad-cross vertical"></div>
+            </div>
+        </div>
+        
+        <!-- Shoulder Buttons -->
+        <div class="shoulder-buttons">
+            <div class="shoulder-button">L</div>
+            <div class="shoulder-button">R</div>
+        </div>
+        
+        <!-- Start/Select Buttons -->
+        <div class="start-select">
+            <div class="select-button">SELECT</div>
+            <div class="start-button">START</div>
+        </div>
+        
+        <!-- Nintendo Branding -->
+        <div class="nintendo-logo">Nintendo 3DS</div>
+    </div>
+    
+    <script>
+        // Interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Orbital model interactions
+            const orbitals = document.querySelectorAll('.orbital-model');
+            orbitals.forEach(orbital => {
+                orbital.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.2) rotate(180deg)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 500);
+                });
+            });
+            
+            // Tour card interactions
+            const tourCards = document.querySelectorAll('.tour-card');
+            tourCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Highlight selected tour
+                    tourCards.forEach(c => c.style.borderColor = 'rgba(212, 175, 55, 0.4)');
+                    this.style.borderColor = '#d4af37';
+                    this.style.boxShadow = '0 4px 12px rgba(212, 175, 55, 0.3)';
+                });
+            });
+            
+            // Button interactions
+            const buttons = document.querySelectorAll('.nav-button, .button-a, .button-b');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Visual feedback
+                    this.style.transform = 'translateY(2px)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 100);
+                });
+            });
+            
+            // Progress bar animation
+            setTimeout(() => {
+                const progressFill = document.querySelector('.progress-fill');
+                progressFill.style.width = '25%';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

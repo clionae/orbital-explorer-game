@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nintendo 3DS Louvre Guide - Canva Export</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .export-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .export-section {
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .export-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 10px;
+        }
+        
+        /* Nintendo 3DS Frame */
+        .ds-frame {
+            width: 400px;
+            height: 480px;
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        .ds-top-screen {
+            width: 360px;
+            height: 200px;
+            background: linear-gradient(135deg, #fef7e7, #f4e4bc);
+            border: 3px solid #2c3e50;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ds-bottom-screen {
+            width: 360px;
+            height: 200px;
+            background: linear-gradient(135deg, #fef7e7, #f4e4bc);
+            border: 3px solid #2c3e50;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Louvre Museum Header */
+        .museum-header {
+            background: linear-gradient(135deg, #d4af37, #b8941f);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        /* Tour Cards */
+        .tour-card {
+            background: linear-gradient(145deg, #fef7e7, #f4e4bc);
+            border: 2px solid #d4af37;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .tour-icon {
+            font-size: 32px;
+            width: 50px;
+            text-align: center;
+        }
+        
+        .tour-info h3 {
+            margin: 0 0 5px 0;
+            color: #8b4513;
+            font-size: 16px;
+        }
+        
+        .tour-info p {
+            margin: 0;
+            color: #a0522d;
+            font-size: 12px;
+        }
+        
+        /* 3D Orbital Models */
+        .orbital-showcase {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .orbital-model {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .orbital-s {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, #ff8e8e, #ffb3b3);
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+        }
+        
+        .orbital-p {
+            width: 120px;
+            height: 60px;
+            background: linear-gradient(45deg, #ff9500, #ffb347, #ffd700);
+            border-radius: 30px;
+            position: relative;
+            box-shadow: 0 0 20px rgba(255, 149, 0, 0.5);
+        }
+        
+        .orbital-p::before {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 60px;
+            background: linear-gradient(-45deg, #ff9500, #ffb347, #ffd700);
+            border-radius: 30px;
+            transform: rotate(90deg);
+            top: 0;
+            left: 0;
+        }
+        
+        .orbital-d {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #feca57, #ff9500, #ffb347);
+            transform: rotate(45deg);
+            position: relative;
+            box-shadow: 0 0 20px rgba(254, 202, 87, 0.5);
+        }
+        
+        .orbital-f {
+            width: 100px;
+            height: 100px;
+            background: conic-gradient(from 0deg, #d4af37, #ff9500, #ffb347, #ffd700, #feca57, #d4af37);
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+        }
+        
+        /* Color Palette */
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .color-swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .color-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+            width: 80px;
+        }
+        
+        /* Buttons */
+        .ds-button {
+            background: linear-gradient(145deg, #d4af37, #b8941f);
+            border: 2px solid #8b7355;
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 3px 0 #8b7355, 0 4px 8px rgba(0,0,0,0.2);
+            margin: 5px;
+            display: inline-block;
+        }
+        
+        .export-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .download-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        
+        .download-btn:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="export-container">
+        <h1 style="text-align: center; color: #d4af37; font-size: 32px; margin-bottom: 30px;">
+            🏛️ Nintendo 3DS Louvre Guide - Canva Export Kit
+        </h1>
+        
+        <!-- Complete 3DS Interface -->
+        <div class="export-section">
+            <div class="export-title">Complete Nintendo 3DS Interface</div>
+            <div style="display: flex; justify-content: center;">
+                <div class="ds-frame">
+                    <!-- Top Screen -->
+                    <div class="ds-top-screen">
+                        <div class="museum-header">
+                            🏛️ Orbital Museum Guide
+                        </div>
+                        <div style="padding: 20px; text-align: center;">
+                            <h2 style="color: #8b4513; margin: 10px 0;">Welcome to the Orbital Tour</h2>
+                            <p style="color: #a0522d; font-size: 14px;">Interactive Audio Guide • Nintendo 3DS</p>
+                            <div style="width: 100px; height: 2px; background: #d4af37; margin: 10px auto;"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bottom Screen -->
+                    <div class="ds-bottom-screen">
+                        <div style="padding: 15px;">
+                            <div class="tour-card" style="margin: 5px 0; padding: 8px;">
+                                <div class="tour-icon">🔬</div>
+                                <div class="tour-info">
+                                    <h3>Orbital Discovery Tour</h3>
+                                    <p>⏱️ 15-20 min</p>
+                                </div>
+                            </div>
+                            <div class="tour-card" style="margin: 5px 0; padding: 8px;">
+                                <div class="tour-icon">⚗️</div>
+                                <div class="tour-info">
+                                    <h3>Interactive Laboratory</h3>
+                                    <p>⏱️ 10-15 min</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Hardware Buttons -->
+                    <div style="position: absolute; right: -15px; top: 100px;">
+                        <div style="width: 30px; height: 30px; background: linear-gradient(145deg, #4169E1, #1E90FF); border-radius: 50%; margin: 5px 0; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">A</div>
+                        <div style="width: 30px; height: 30px; background: linear-gradient(145deg, #DC143C, #FF6347); border-radius: 50%; margin: 5px 0; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">B</div>
+                    </div>
+                </div>
+            </div>
+            <button class="download-btn" onclick="downloadElement('ds-frame')">Download 3DS Interface</button>
+        </div>
+        
+        <!-- 3D Orbital Models -->
+        <div class="export-section">
+            <div class="export-title">3D Orbital Models</div>
+            <div class="orbital-showcase">
+                <div style="text-align: center;">
+                    <div class="orbital-model">
+                        <div class="orbital-s"></div>
+                    </div>
+                    <h3 style="color: #8b4513;">S Orbital</h3>
+                    <p style="color: #a0522d; font-size: 12px;">Spherical symmetry</p>
+                </div>
+                
+                <div style="text-align: center;">
+                    <div class="orbital-model">
+                        <div class="orbital-p"></div>
+                    </div>
+                    <h3 style="color: #8b4513;">P Orbital</h3>
+                    <p style="color: #a0522d; font-size: 12px;">Dumbbell shape</p>
+                </div>
+                
+                <div style="text-align: center;">
+                    <div class="orbital-model">
+                        <div class="orbital-d"></div>
+                    </div>
+                    <h3 style="color: #8b4513;">D Orbital</h3>
+                    <p style="color: #a0522d; font-size: 12px;">Cloverleaf pattern</p>
+                </div>
+                
+                <div style="text-align: center;">
+                    <div class="orbital-model">
+                        <div class="orbital-f"></div>
+                    </div>
+                    <h3 style="color: #8b4513;">F Orbital</h3>
+                    <p style="color: #a0522d; font-size: 12px;">Complex multi-lobed</p>
+                </div>
+            </div>
+            <button class="download-btn" onclick="downloadElement('orbital-showcase')">Download Orbital Models</button>
+        </div>
+        
+        <!-- UI Components -->
+        <div class="export-section">
+            <div class="export-title">Individual UI Components</div>
+            <div class="export-grid">
+                <div>
+                    <h4 style="color: #8b4513;">Tour Cards</h4>
+                    <div class="tour-card">
+                        <div class="tour-icon">🔬</div>
+                        <div class="tour-info">
+                            <h3>Orbital Discovery Tour</h3>
+                            <p>Explore atomic structures • ⏱️ 15-20 min</p>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <div class="tour-icon">⚗️</div>
+                        <div class="tour-info">
+                            <h3>Interactive Laboratory</h3>
+                            <p>Build electron configurations • ⏱️ 10-15 min</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 style="color: #8b4513;">Buttons</h4>
+                    <div class="ds-button">🏠 Home</div>
+                    <div class="ds-button">🔬 Explore</div>
+                    <div class="ds-button">⚙️ Settings</div>
+                    <div class="ds-button">🏆 Progress</div>
+                </div>
+            </div>
+            <button class="download-btn" onclick="downloadComponents()">Download Components</button>
+        </div>
+        
+        <!-- Color Palette -->
+        <div class="export-section">
+            <div class="export-title">Louvre Museum Color Palette</div>
+            <div class="color-palette">
+                <div class="color-swatch" style="background: #d4af37;">
+                    <div class="color-label">Louvre Gold<br>#d4af37</div>
+                </div>
+                <div class="color-swatch" style="background: #b8941f;">
+                    <div class="color-label">Dark Gold<br>#b8941f</div>
+                </div>
+                <div class="color-swatch" style="background: #fef7e7;">
+                    <div class="color-label">Museum Cream<br>#fef7e7</div>
+                </div>
+                <div class="color-swatch" style="background: #f4e4bc;">
+                    <div class="color-label">Louvre Beige<br>#f4e4bc</div>
+                </div>
+                <div class="color-swatch" style="background: #8b4513;">
+                    <div class="color-label">Museum Brown<br>#8b4513</div>
+                </div>
+                <div class="color-swatch" style="background: #ff9500;">
+                    <div class="color-label">Orbital Orange<br>#ff9500</div>
+                </div>
+            </div>
+            <button class="download-btn" onclick="downloadPalette()">Download Color Palette</button>
+        </div>
+        
+        <!-- Instructions -->
+        <div class="export-section">
+            <div class="export-title">How to Use in Canva</div>
+            <div style="line-height: 1.6; color: #555;">
+                <h4>📋 Step-by-Step Instructions:</h4>
+                <ol>
+                    <li><strong>Download Elements:</strong> Click the download buttons above to save individual components</li>
+                    <li><strong>Import to Canva:</strong> Upload the downloaded images to your Canva media library</li>
+                    <li><strong>Create Your Design:</strong> Drag and drop elements onto your Canva canvas</li>
+                    <li><strong>Customize Colors:</strong> Use the provided color codes to match the Louvre theme</li>
+                    <li><strong>Add Your Content:</strong> Replace placeholder text with your orbital information</li>
+                    <li><strong>Add Real Photos:</strong> Insert your actual orbital photographs in the designated areas</li>
+                </ol>
+                
+                <h4>🎨 Design Tips:</h4>
+                <ul>
+                    <li>Maintain the 3DS aspect ratio (400x480px) for authenticity</li>
+                    <li>Use the museum color palette consistently</li>
+                    <li>Keep the Nintendo 3DS hardware button styling</li>
+                    <li>Preserve the Louvre museum aesthetic with elegant typography</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function downloadElement(elementClass) {
+            // This would implement actual download functionality
+            alert('Download functionality would be implemented here. For now, you can right-click and "Save image as" on the elements above.');
+        }
+        
+        function downloadComponents() {
+            alert('Component download would be implemented here. You can screenshot individual components for now.');
+        }
+        
+        function downloadPalette() {
+            alert('Color palette download would be implemented here. Use the hex codes provided: #d4af37, #b8941f, #fef7e7, #f4e4bc, #8b4513, #ff9500');
+        }
+    </script>
+</body>
+</html>
